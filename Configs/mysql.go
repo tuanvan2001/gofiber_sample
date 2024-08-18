@@ -1,4 +1,4 @@
-package config
+package Configs
 
 import (
 	"auth_service/model"

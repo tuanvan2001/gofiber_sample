@@ -2,16 +2,16 @@ package main
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"goSample/Configs"
+	"goSample/Routes"
 	Http "goSample/Type/Http"
-	"goSample/config"
-	"goSample/routes"
 	"log"
 )
 
 func init() {
-	config.LoadENV()
-	config.ConnectMySQL()
-	config.ConnectRedis()
+	Configs.LoadENV()
+	Configs.ConnectMySQL()
+	Configs.ConnectRedis()
 }
 
 func main() {
@@ -51,6 +51,6 @@ func main() {
 			"message": "Ok",
 		})
 	})
-	routes.SetupRoutes(app)
+	Routes.SetupRoutes(app)
 	log.Fatal(app.Listen(":3000"))
 }

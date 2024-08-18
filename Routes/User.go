@@ -1,12 +1,12 @@
-package routes
+package Routes
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"goSample/controller"
+	"goSample/Controllers"
 )
 
 func AuthRoutes(app *fiber.App) {
 	authRoutes := app.Group("/user")
 
-	authRoutes.Post("/login", controller.CreateUser)
+	authRoutes.Post("/login", Controllers.CreateUser)
 }
