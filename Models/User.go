@@ -2,15 +2,14 @@ package Models
 
 import (
 	"database/sql"
-	"github.com/google/uuid"
 	"gorm.io/gorm"
 	"time"
 )
 
 type User struct {
-	ID          uint      `gorm:"primaryKey"`
-	uuid        uuid.UUID `gorm:"index"`
+	ID          uint `gorm:"primaryKey"`
 	Username    string
+	PhoneNumber string
 	Password    string
 	FullName    string
 	Email       string
