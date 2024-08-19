@@ -40,27 +40,12 @@ func (uc *UserController) CreateUser(ctx *fiber.Ctx) error {
 			"errors":  validationErr.Error(),
 		})
 	}
+	var existingUserByEmail, existingUserByUsername, existingUserByPhone any
+	Configs.MySQL.Where("email = ?", body.Email).First(&existingUserByEmail)
 
-	var existingUserByEmail Models.User
-	if err := Configs.MySQL.Where("email = ?", body.Email).First(&existingUserByEmail).Error; err != nil {
-		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"message": "email already exists",
-		})
-	}
+	Configs.MySQL.Where("username = ?", body.Username).First(&existingUserByUsername)
 
-	var existingUserByUsername Models.User
-	if err := Configs.MySQL.Where("username = ?", body.Username).First(&existingUserByUsername).Error; err != nil {
-		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"message": "username already exists",
-		})
-	}
-
-	var existingUserByPhone Models.User
-	if err := Configs.MySQL.Where("phone_number = ?", body.PhoneNumber).First(&existingUserByPhone).Error; err != nil {
-		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"message": "phone number already exists",
-		})
-	}
+	Configs.MySQL.Where("phone_number = ?", body.PhoneNumber).First(&existingUserByPhone)
 
 	birthday, _ := time.Parse("2006-01-02", body.Birthday)
 
