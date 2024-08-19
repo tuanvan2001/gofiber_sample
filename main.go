@@ -11,7 +11,7 @@ import (
 func init() {
 	Configs.LoadENV()
 	Configs.ConnectMySQL()
-	Configs.ConnectRedis()
+	//Configs.ConnectRedis()
 }
 
 func main() {
