@@ -5,5 +5,5 @@ import (
 )
 
 func SetupRoutes(app *fiber.App) {
-	AuthRoutes(app)
+	UserRoutes(app)
 }

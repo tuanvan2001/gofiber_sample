@@ -5,7 +5,7 @@ import (
 	"goSample/Controllers"
 )
 
-func AuthRoutes(app *fiber.App) {
+func UserRoutes(app *fiber.App) {
 	authRoutes := app.Group("/user")
 
 	authRoutes.Post("/login", Controllers.CreateUser)

@@ -1,8 +1,8 @@
 package Configs
 
 import (
-	"auth_service/model"
 	"fmt"
+	"goSample/Models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"log"
@@ -24,5 +24,5 @@ func ConnectMySQL() {
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-	MySQL.AutoMigrate(&model.User{}, &model.Session{})
+	MySQL.AutoMigrate(&Models.User{})
 }

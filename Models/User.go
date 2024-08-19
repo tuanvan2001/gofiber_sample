@@ -9,7 +9,7 @@ import (
 
 type User struct {
 	ID          uint      `gorm:"primaryKey"`
-	uuid        uuid.UUID `gorm:"index"`
+	UUID        uuid.UUID `gorm:"index"`
 	Username    string
 	Password    string
 	FullName    string
