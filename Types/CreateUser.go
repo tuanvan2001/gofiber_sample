@@ -1,4 +1,4 @@
-package Type
+package Types
 
 type Login struct {
 	Username string `json:"username" validate:"required"`

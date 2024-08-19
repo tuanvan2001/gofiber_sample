@@ -4,7 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"goSample/Configs"
 	"goSample/Routes"
-	Http "goSample/Type/Http"
+	Http "goSample/Types/Http"
 	"log"
 )
 
