@@ -40,7 +40,7 @@ func (uc *UserController) CreateUser(ctx *fiber.Ctx) error {
 			"errors":  validationErr.Error(),
 		})
 	}
-	var existingUserByEmail, existingUserByUsername, existingUserByPhone interface{}
+	var existingUserByEmail, existingUserByUsername, existingUserByPhone Models.User
 	Configs.MySQL.Where("email = ?", body.Email).First(&existingUserByEmail)
 
 	Configs.MySQL.Where("username = ?", body.Username).First(&existingUserByUsername)
