@@ -12,10 +12,11 @@ type User struct {
 	UUID        uuid.UUID `gorm:"index"`
 	Username    string
 	Password    string
+	PhoneNumber string
 	FullName    string
 	Email       string
 	Age         uint8
-	Birthday    time.Time
+	Birthday    string
 	ActivatedAt sql.NullTime
 	CreatedAt   time.Time
 	UpdatedAt   time.Time

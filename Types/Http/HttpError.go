@@ -10,10 +10,15 @@ func (e *HttpError) Error() string {
 	return e.Message
 }
 
-func CreateHttpError(code int, message string, detail interface{}) *HttpError {
+func CreateHttpError(code int, message string, detail ...interface{}) *HttpError {
+	var detailValue interface{}
+	if len(detail) > 0 {
+		detailValue = detail[0]
+	}
+
 	return &HttpError{
 		Code:    code,
 		Message: message,
-		Detail:  detail,
+		Detail:  detailValue,
 	}
 }
