@@ -6,7 +6,7 @@ import (
 )
 
 func UserRoutes(app *fiber.App) {
-	authRoutes := app.Group("/user")
+	userRoutes := app.Group("/user")
 
-	authRoutes.Post("/login", Controllers.CreateUser)
+	userRoutes.Post("/", Controllers.CreateUser)
 }

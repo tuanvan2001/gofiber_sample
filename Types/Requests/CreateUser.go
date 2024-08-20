@@ -1,6 +1,6 @@
-package Types
+package Requests
 
-type Login struct {
+type CreateUser struct {
 	Username string `json:"username" validate:"required"`
 	Password string `json:"password" validate:"required"`
 }
