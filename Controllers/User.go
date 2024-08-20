@@ -5,6 +5,7 @@ import (
 	"goSample/Middlewares"
 	"goSample/Services"
 	"goSample/Types/Http"
+	"goSample/Types/Messages"
 	"goSample/Types/Requests"
 )
 
@@ -23,7 +24,7 @@ func CreateUser(ctx *fiber.Ctx) error {
 
 	}
 	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
-		"message": "success",
+		"message": Messages.Vi["Created"],
 		"data": fiber.Map{
 			"token": id,
 		},
