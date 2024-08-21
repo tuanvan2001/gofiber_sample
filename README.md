@@ -12,7 +12,7 @@
   "Types": {
     "Http": "Cấu hình các struct HTTP",
     "Messages": "Cấu hình các message trả về cho client",
-    "Requests": "Define body & rule validate POST HTTP Request."
+    "Requests": "Defines the body & validation rules for POST HTTP Request."
   }
 }
 ```
