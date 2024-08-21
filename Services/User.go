@@ -1,12 +1,16 @@
 package Services
 
 import (
+	"context"
+	"encoding/json"
 	"fmt"
 	"goSample/Configs"
 	"goSample/Models"
 	"goSample/Types/Messages"
 	"goSample/Types/Requests"
 )
+
+var ctx = context.Background()
 
 func CreateUser(createUserDto *Requests.CreateUser) (int64, error) {
 	// Check if the user already exists
@@ -31,6 +35,17 @@ func CreateUser(createUserDto *Requests.CreateUser) (int64, error) {
 		return 0, fmt.Errorf(UserMessages.Vi["CreateFail"])
 	}
 
+	// Serialize the new user to JSON
+	userJSON, err := json.Marshal(newUser)
+	if err != nil {
+		return int64(newUser.ID), fmt.Errorf(UserMessages.Vi["CacheFail"])
+	}
+
+	// Cache the new user in Redis
+	err = Configs.Redis.Set(ctx, fmt.Sprintf("user:%d", newUser.ID), userJSON, 0).Err()
+	if err != nil {
+		return int64(newUser.ID), fmt.Errorf(UserMessages.Vi["CacheFail"])
+	}
 	return int64(newUser.ID), nil
 }
 
