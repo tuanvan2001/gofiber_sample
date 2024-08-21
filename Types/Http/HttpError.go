@@ -1,5 +1,7 @@
 package Http
 
+import "github.com/gofiber/fiber/v2"
+
 type HttpError struct {
 	Code    int         `json:"code"`
 	Message string      `json:"message"`
@@ -21,4 +23,8 @@ func CreateHttpError(code int, message string, detail ...interface{}) *HttpError
 		Message: message,
 		Detail:  detailValue,
 	}
+}
+
+func CreateHttpErrorValidate(detail interface{}) *HttpError {
+	return CreateHttpError(fiber.StatusBadRequest, "Xác thực body thất bại.", detail)
 }

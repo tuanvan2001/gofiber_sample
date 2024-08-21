@@ -5,7 +5,7 @@ import (
 	"goSample/Middlewares"
 	"goSample/Services"
 	"goSample/Types/Http"
-	"goSample/Types/Messages/User"
+	"goSample/Types/Messages"
 	"goSample/Types/Requests"
 )
 
@@ -16,7 +16,7 @@ func CreateUser(ctx *fiber.Ctx) error {
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
 	if errMsgs, hasErrors := Middlewares.Validator.Validate(createUserDto, Requests.CreateUserMessage); hasErrors {
-		return Http.CreateHttpError(fiber.StatusBadRequest, "Kiểm tra body thất bại.", errMsgs)
+		return Http.CreateHttpErrorValidate(errMsgs)
 	}
 	id, errCreateUser := Services.CreateUser(createUserDto)
 	if errCreateUser != nil {
@@ -24,9 +24,9 @@ func CreateUser(ctx *fiber.Ctx) error {
 
 	}
 	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
-		"message": User.Vi["Created"],
+		"message": UserMessages.Vi["Created"],
 		"data": fiber.Map{
-			"token": id,
+			"userID": id,
 		},
 	})
 }

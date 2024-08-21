@@ -4,15 +4,14 @@ import (
 	"fmt"
 	"goSample/Configs"
 	"goSample/Models"
-	"goSample/Types/Messages/User"
+	"goSample/Types/Messages"
 	"goSample/Types/Requests"
-	"log"
 )
 
 func CreateUser(createUserDto *Requests.CreateUser) (int64, error) {
 	// Check if the user already exists
 	if _, err := FindUserByUsername(createUserDto.Username); err == nil {
-		return 0, fmt.Errorf(User.Vi["Exist"])
+		return 0, fmt.Errorf(UserMessages.Vi["Exist"])
 	}
 
 	// Create a new user
@@ -29,10 +28,10 @@ func CreateUser(createUserDto *Requests.CreateUser) (int64, error) {
 	// Save the new user to the database
 	result := Configs.MySQL.Create(newUser)
 	if result.Error != nil {
-		return 0, fmt.Errorf(User.Vi["CreateFail"])
+		return 0, fmt.Errorf(UserMessages.Vi["CreateFail"])
 	}
 
-	return result.RowsAffected, nil
+	return int64(newUser.ID), nil
 }
 
 func FindUser(userId int) (Models.User, error) {
@@ -47,7 +46,6 @@ func FindUser(userId int) (Models.User, error) {
 func FindUserByUsername(username string) (Models.User, error) {
 	var user Models.User
 	result := Configs.MySQL.Where("username = ?", username).First(&user)
-	log.Println(result)
 	if result.Error != nil {
 		return Models.User{}, result.Error
 	}
