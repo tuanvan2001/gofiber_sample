@@ -16,7 +16,22 @@
   }
 }
 ```
-
+```json
+{
+  "Configs": "contains configurations such as mysql, redis, loadEnv, cors, etc.",
+  "Controllers": "handles HTTP requests from clients.",
+  "Middlewares": "contains functions that process HTTP requests before passing them to Controllers.",
+  "Models": "contains models that map to tables in MySQL.",
+  "Routes": "configures routing.",
+  "Services": "handles logic or interacts with external services.",
+  "main.go": "The file that initializes the server.",
+  "Types": {
+    "Http": "Defines HTTP structs.",
+    "Messages": "Defines messages returned to clients.",
+    "Requests": "Defines the body & validation rules for POST HTTP Requests."
+  }
+}
+```
 ## LifeCycle:
 
 ```
