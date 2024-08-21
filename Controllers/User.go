@@ -11,13 +11,14 @@ import (
 
 func CreateUser(ctx *fiber.Ctx) error {
 	var createUserDto *Requests.CreateUser
-
+	// check body & validate body
 	if err := ctx.BodyParser(&createUserDto); err != nil {
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
 	if errMsgs, hasErrors := Middlewares.Validator.Validate(createUserDto, Requests.CreateUserMessage); hasErrors {
 		return Http.CreateHttpErrorValidate(errMsgs)
 	}
+	//call service create user
 	id, errCreateUser := Services.CreateUser(createUserDto)
 	if errCreateUser != nil {
 		return Http.CreateHttpError(fiber.StatusBadRequest, errCreateUser.Error())

@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gofiber/fiber/v2"
 	"goSample/Configs"
+	"goSample/Middlewares"
 	"goSample/Routes"
 	Http "goSample/Types/Http"
 	"log"
@@ -45,7 +46,7 @@ func main() {
 			return ctx.Status(fiber.StatusInternalServerError).JSON(customError)
 		},
 	})
-
+	app.Use(Middlewares.VerifyToken)
 	app.Get("/healthCheck", func(ctx *fiber.Ctx) error {
 		return ctx.JSON(fiber.Map{
 			"message": "Ok",

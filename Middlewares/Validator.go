@@ -38,7 +38,7 @@ func getMessage(fieldError validator.FieldError, messages map[string]string) str
 	if msg, exists := messages[key]; exists {
 		return msg
 	}
-	return fmt.Sprintf("Trường %s không hợp lệ", fieldError.Field())
+	return fmt.Sprintf("Trường %s không hợp lệ.", fieldError.Field())
 }
 
 var Validator = &XValidator{validator: validate}

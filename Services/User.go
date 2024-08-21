@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/google/uuid"
 	"goSample/Configs"
 	"goSample/Models"
 	"goSample/Types/Messages"
@@ -20,6 +21,7 @@ func CreateUser(createUserDto *Requests.CreateUser) (int64, error) {
 
 	// Create a new user
 	newUser := &Models.User{
+		UUID:        uuid.New(),
 		Username:    createUserDto.Username,
 		Password:    createUserDto.Password,
 		PhoneNumber: createUserDto.PhoneNumber,
