@@ -16,7 +16,7 @@ var ctx = context.Background()
 func CreateUser(createUserDto *Requests.CreateUser) (int64, error) {
 	// Check if the user already exists
 	if _, err := FindUserByUsername(createUserDto.Username); err == nil {
-		return 0, fmt.Errorf(UserMessages.Vi["Exist"])
+		return 0, fmt.Errorf(Messages.User["Exist"])
 	}
 
 	// Create a new user
@@ -34,19 +34,19 @@ func CreateUser(createUserDto *Requests.CreateUser) (int64, error) {
 	// Save the new user to the database
 	result := Configs.MySQL.Create(newUser)
 	if result.Error != nil {
-		return 0, fmt.Errorf(UserMessages.Vi["CreateFail"])
+		return 0, fmt.Errorf(Messages.User["CreateFail"])
 	}
 
 	// Serialize the new user to JSON
 	userJSON, err := json.Marshal(newUser)
 	if err != nil {
-		return int64(newUser.ID), fmt.Errorf(UserMessages.Vi["CacheFail"])
+		return int64(newUser.ID), fmt.Errorf(Messages.User["CacheFail"])
 	}
 
 	// Cache the new user in Redis
 	err = Configs.Redis.Set(ctx, fmt.Sprintf("user:%d", newUser.ID), userJSON, 0).Err()
 	if err != nil {
-		return int64(newUser.ID), fmt.Errorf(UserMessages.Vi["CacheFail"])
+		return int64(newUser.ID), fmt.Errorf(Messages.User["CacheFail"])
 	}
 	return int64(newUser.ID), nil
 }

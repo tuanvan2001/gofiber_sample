@@ -25,7 +25,7 @@ func CreateUser(ctx *fiber.Ctx) error {
 
 	}
 	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
-		"message": UserMessages.Vi["Created"],
+		"message": Messages.User["Created"],
 		"data": fiber.Map{
 			"userID": id,
 		},

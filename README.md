@@ -197,3 +197,19 @@ func CreateUser(ctx *fiber.Ctx) error {
 	})
 }
 ```
+#### 3. Create file Routes/User.go
+
+```go
+package Routes
+
+import (
+	"goSample/Controllers"
+)
+
+func UserRoutes(app *fiber.App) {
+	userRoutes := app.Group("/user")
+
+	userRoutes.Post("/", Controllers.CreateUser)
+}
+
+```
