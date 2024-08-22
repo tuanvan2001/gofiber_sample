@@ -40,12 +40,11 @@ func CreateTokenJWT(userID int, username string) (string, error) {
 }
 
 func ValidateTokenJWT(tokenString string) (*Claims, error) {
-	//var jwtKey = []byte("Tuandev2001")
+	var jwtKey = []byte(os.Getenv("JWT_KEY"))
 	claims := &Claims{}
 
-	// Phân tích cú pháp và xác thực token
 	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
-		return []byte("Tuandev2001"), nil
+		return jwtKey, nil
 	})
 
 	if err != nil {
