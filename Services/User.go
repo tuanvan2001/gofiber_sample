@@ -11,7 +11,7 @@ import (
 func CreateUser(createUserDto *Requests.CreateUser) (int64, error) {
 	// Check if the user already exists
 	if _, err := FindUserByUsername(createUserDto.Username); err == nil {
-		return 0, fmt.Errorf(UserMessages.Vi["Exist"])
+		return 0, fmt.Errorf(Messages.User["Exist"])
 	}
 
 	// Create a new user
@@ -28,7 +28,7 @@ func CreateUser(createUserDto *Requests.CreateUser) (int64, error) {
 	// Save the new user to the database
 	result := Configs.MySQL.Create(newUser)
 	if result.Error != nil {
-		return 0, fmt.Errorf(UserMessages.Vi["CreateFail"])
+		return 0, fmt.Errorf(Messages.User["CreateFail"])
 	}
 
 	return int64(newUser.ID), nil
