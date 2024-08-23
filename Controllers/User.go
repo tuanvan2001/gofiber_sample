@@ -15,8 +15,8 @@ func CreateUser(ctx *fiber.Ctx) error {
 	if err := ctx.BodyParser(&createUserDto); err != nil {
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
-	if errMsgs, hasErrors := Middlewares.Validator.Validate(createUserDto, Requests.CreateUserMessage); hasErrors {
-		return Http.CreateHttpErrorValidate(errMsgs)
+	if errValidate, hasErrorValidate := Middlewares.Validator.Validate(createUserDto, Requests.CreateUserMessage); hasErrorValidate {
+		return Http.CreateHttpErrorValidate(errValidate)
 	}
 	//call service create user
 	id, errCreateUser := Services.CreateUser(createUserDto)

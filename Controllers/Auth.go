@@ -7,7 +7,6 @@ import (
 	"goSample/Types/Http"
 	"goSample/Types/Messages"
 	"goSample/Types/Requests"
-	"log"
 )
 
 func Login(ctx *fiber.Ctx) error {
@@ -19,8 +18,8 @@ func Login(ctx *fiber.Ctx) error {
 			err.Error(),
 		)
 	}
-	if errMsgs, hasErrors := Middlewares.Validator.Validate(loginDto, Requests.LoginMessage); hasErrors {
-		return Http.CreateHttpErrorValidate(errMsgs)
+	if errValidate, hasErrorValidate := Middlewares.Validator.Validate(loginDto, Requests.LoginMessage); hasErrorValidate {
+		return Http.CreateHttpErrorValidate(errValidate)
 	}
 
 	user, err := Services.Login(loginDto)
@@ -28,12 +27,6 @@ func Login(ctx *fiber.Ctx) error {
 		return Http.CreateHttpError(fiber.StatusBadRequest, err.Error())
 	}
 
-	claims, errJWT := Services.ValidateTokenJWT(user.Token)
-	if errJWT != nil {
-		return Http.CreateHttpError(fiber.StatusBadRequest, err.Error())
-	}
-	log.Println(claims.Username)
-	log.Println(claims.UserID)
 	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
 		"message": Messages.Login["Success"],
 		"data":    user,
@@ -49,8 +42,8 @@ func Register(ctx *fiber.Ctx) error {
 			err.Error(),
 		)
 	}
-	if errMsgs, hasErrors := Middlewares.Validator.Validate(loginDto, Requests.LoginMessage); hasErrors {
-		return Http.CreateHttpErrorValidate(errMsgs)
+	if errValidate, hasErrorValidate := Middlewares.Validator.Validate(loginDto, Requests.LoginMessage); hasErrorValidate {
+		return Http.CreateHttpErrorValidate(errValidate)
 	}
 
 	user, err := Services.Login(loginDto)

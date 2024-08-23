@@ -49,13 +49,13 @@ func ValidateTokenJWT(tokenString string) (*Claims, error) {
 
 	if err != nil {
 		if err == jwt.ErrSignatureInvalid {
-			return nil, fmt.Errorf("token chữ ký không hợp lệ")
+			return nil, fmt.Errorf("token chữ ký không hợp lệ.")
 		}
-		return nil, fmt.Errorf("không thể phân tích cú pháp token: %v", err)
+		return nil, fmt.Errorf("không thể phân tích cú pháp token: %v.", err)
 	}
 
 	if !token.Valid {
-		return nil, fmt.Errorf("token không hợp lệ")
+		return nil, fmt.Errorf("token không hợp lệ.")
 	}
 
 	return claims, nil
