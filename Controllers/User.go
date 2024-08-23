@@ -7,9 +7,11 @@ import (
 	"goSample/Types/Http"
 	"goSample/Types/Messages"
 	"goSample/Types/Requests"
+	"log"
 )
 
 func CreateUser(ctx *fiber.Ctx) error {
+	log.Print("Call CreateUser Controller")
 	var createUserDto *Requests.CreateUser
 	// check body & validate body
 	if err := ctx.BodyParser(&createUserDto); err != nil {
