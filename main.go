@@ -1,11 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"goSample/Configs"
 	"goSample/Routes"
 	Http "goSample/Types/Http"
 	"log"
+	"os"
 )
 
 func init() {
@@ -51,5 +53,7 @@ func main() {
 		})
 	})
 	Routes.SetupRoutes(app)
-	log.Fatal(app.Listen(":3000"))
+	APP_PORT := os.Getenv("APP_PORT")
+	APP_HOST := os.Getenv("APP_HOST")
+	log.Fatal(app.Listen(fmt.Sprintf("%s:%s", APP_HOST, APP_PORT)))
 }
